@@ -11,25 +11,62 @@ class Dog(models.Model):
         ('XL', 'huge')
     )
 
+    NOSES = (
+        ('BK', 'black'),
+        ('LG', 'light gray'),
+        ('GR', 'gray'),
+        ('AB', 'almost black'),
+        ('PL', 'purplish'),
+        ('BF', 'butterfly'),
+        ('DL', 'dudley'),
+        ('SN', 'snow'),
+        ('PN', 'pink'),
+        ('BP', 'bright pink'),
+        ('BR', 'brown'),
+    )
+
+    EYES = (
+        ('BR', 'brown'),
+        ('AM', 'amber'),
+        ('LA', 'light brown amber'),
+        ('YL', 'yellow'),
+        ('YG', 'yellow green'),
+        ('GR', 'grey'),
+        ('CP', 'copper'),
+        ('BL', 'blue'),
+        ('AW', 'almost white blue'),
+        ('WL', 'wall/heterochromia'),
+        ('SP', 'split'),
+    )
+
+    COATS = (
+        ('HS', 'hairless single heterozygous'),
+        ('HL', 'hairless LETHAL homozygous'),
+        ('LN', 'long'),
+        ('WR', 'wire'),
+        ('SM', 'smooth'),
+        ('CS', 'curly smooth'),
+        ('CL', 'curly long'),
+        ('WS', 'wire smooth'),
+        ('WL', 'wire long'),
+        ('WC', 'wire curly'),
+    )
+
+    creation_date = models.DateTimeField('creation date', default=dtm.now)
     owner = models.ForeignKey('auth.User', on_delete=models.CASCADE, default=None)
     dog_name = models.CharField(max_length=30, default="Unnamed")
-    # type = models.CharField(max_length=200, default="Mix")
-    gender_choices = [
+    GENDERS = [
         ('M', 'Male'),
         ('F', 'Female'),
     ]
-    gender = models.CharField(
-        max_length=2,
-        choices=gender_choices,
-        default='M',
-    )
-    color = models.CharField(max_length=200, null=True)
-    coat = models.CharField(max_length=200, null=True)
-    eyes = models.CharField(max_length=100, null=True)
-    pigment = models.CharField(max_length=100, null=True)
-
-    creation_date = models.DateTimeField('creation date', default=dtm.now)
+    gender = models.CharField(max_length=2, choices=GENDERS, default='M')
     age = models.IntegerField(default=0)
+    size = models.CharField(max_length=150, choices=SIZES, default='M')
+
+    nose = models.CharField(max_length=150, choices=NOSES, default='BK')
+    eye = models.CharField(max_length=150, choices=EYES, default='BR')
+    color = models.CharField(max_length=200, null=True)
+    coat = models.CharField(max_length=150, choices=COATS, default='SM')
 
     health_points = models.IntegerField(default=100)
     energy_points = models.IntegerField(default=100)
@@ -43,10 +80,10 @@ class Dog(models.Model):
     grooming = models.IntegerField(default=100)
     chewing = models.IntegerField(default=100)
     mood = models.IntegerField(default=100)
+
     activity = models.IntegerField(default=5)
     intelligent = models.IntegerField(default=5)
     prey_drive = models.IntegerField(default=5)
-    size = models.CharField(max_length=150, choices=SIZES, default='M')
 
     def __str__(self):
         return self.dog_name
