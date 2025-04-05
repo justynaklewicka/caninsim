@@ -20,10 +20,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
+# SECURITY WARNING: keep the secret key used in production secret! todo
 SECRET_KEY = 'django-insecure-1awcz%@#f*(+(jbzb88m&bu54@$=-$!0$wzob&yq0x9^%nrz2='
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: don't run with debug turned on in production! todo
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'caninsim_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3', # todo
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
@@ -123,3 +123,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Redirect to home URL after login (Default redirects to /accounts/profile/)
+LOGIN_REDIRECT_URL = '/'
+
+#DEV: todo
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
