@@ -29,7 +29,11 @@ jobs:
           echo "DEBUG=True" >> $GITHUB_ENV
 
       - name: Run migrations
-        run: python manage.py migrate
+        run: |
+          cd caninsim_project
+          python manage.py migrate
 
       - name: Run tests
-        run: python manage.py test
+        run: |
+          cd caninsim_project
+          python manage.py test
