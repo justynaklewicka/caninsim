@@ -1,0 +1,39 @@
+{% extends "base_generic.html" %}
+
+{%block content%}
+<h1 align="center"><b>{{ dog.dog_name }}</b></h1>
+<br>
+<i><h5 align="right">Created: {{ dog.creation_date }}</h5></i>
+<strong>Owned by:</strong> <a href="{{ dog.owner.get_absolute_url }}">{{ dog.owner }}</a>
+<br>
+<br>
+<h6>Gender: {{ dog.get_gender_display }}</h6>
+<h6>Age: {{ dog.age }}</h6>
+<h6>Size: {{ dog.get_size_display }}</h6>
+<br>
+<strong>Genetics:</strong>
+<h6>Nose color: {{ dog.get_nose_display }}</h6>
+<h6>Eye color: {{ dog.get_eye_display }}</h6>
+<h6>Eye color: {{ dog.get_eye_display }}</h6>
+<h6>Coat color: {{ dog.color }}</h6>
+<h6>Coat type: {{ dog.get_coat_display }}</h6>
+<br>
+<strong>Mechanics:</strong>
+<h6>Health: {{ dog.health_points }}</h6>
+<h6>Energy: {{ dog.energy_points }}</h6>
+<h6>Hunger: {{ dog.hunger }}</h6>
+<h6>Thirst: {{ dog.thirst }}</h6>
+<h6>Bladder: {{ dog.bladder }}</h6>
+<h6>Exercise: {{ dog.exercise }}</h6>
+<h6>Exploration: {{ dog.exploration }}</h6>
+<h6>Social needs: {{ dog.social_needs }}</h6>
+<h6>Grooming: {{ dog.grooming }}</h6>
+<h6>Chewing: {{ dog.chewing }}</h6>
+<h6>Mood: {{ dog.mood }}</h6>
+<br>
+<h6>Active: {{ dog.activity }}</h6>
+<h6>Intelligent: {{ dog.intelligent }}</h6>
+<h6>Prey drive: {{ dog.prey_drive }}</h6>
+<h6>Social skills: {{ dog.social_skills }}</h6>
+
+{%endblock content%}

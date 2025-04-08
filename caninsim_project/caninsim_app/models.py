@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime as dtm
+from django.urls import reverse
 
 
 class Dog(models.Model):
@@ -76,49 +77,20 @@ class Dog(models.Model):
     exercise = models.IntegerField(default=100)
     exploration = models.IntegerField(default=100)
     social_needs = models.IntegerField(default=100)
-    social_skills = models.IntegerField(default=0)
     grooming = models.IntegerField(default=100)
     chewing = models.IntegerField(default=100)
     mood = models.IntegerField(default=100)
 
-    activity = models.IntegerField(default=5)
+    active = models.IntegerField(default=5)
     intelligent = models.IntegerField(default=5)
     prey_drive = models.IntegerField(default=5)
+    social_skills = models.IntegerField(default=0)
 
     def __str__(self):
         return self.dog_name
 
+    def get_absolute_url(self):
+        return reverse("dog_detail", kwargs={"pk": self.pk})
+
     # def was_born_recently(self):
     #     return self.creation_date >= timezone.now() - datetime.timedelta(days=1)
-
-# class DogManager(models.Manager):
-#     def create_dog(self, dog_name, breed, gender, color, coat, eyes, pigment,
-#                    health_points, energy_points, hunger, thirst, bladder, exercise, exploration,
-#                    social_needs, social_skills, grooming, chewing, mood
-#                    ):
-#         dog = self.create(
-#             dog_name=dog_name,
-#             breed=breed,
-#             gender=gender,
-#             color=color,
-#             coat=coat,
-#             eyes=eyes,
-#             pigment=pigment,
-#
-#             # creation_date=today,
-#             age=0,
-#             health_points=health_points,
-#             energy_points=energy_points,
-#             hunger=hunger,
-#             thirst=thirst,
-#             bladder=bladder,
-#             exercise=exercise,
-#             exploration=exploration,
-#             social_needs=social_needs,
-#             social_skills=social_skills,
-#             grooming=grooming,
-#             chewing=chewing,
-#             mood=mood
-#         )
-#         # do something with the dog
-#         return dog
