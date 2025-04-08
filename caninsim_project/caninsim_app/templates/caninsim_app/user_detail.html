@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{%block content%}
+<h1 align="center"><b>{{ user.username }}</b></h1>
+<br>
+<i><h5 align="right">Registered: {{ dog.creation_date }}</h5></i>
+
+<strong><em>{{ user.username }}</em> has following dogs:</strong>
+<ul class="ml-4 list-disc">
+  {% for dog in user.dog_set.all %}
+    <li><a href="{{ dog.get_absolute_url }}">{{ dog.dog_name }}</a></li>
+  {% empty %}
+    <li>No dogs yet.</li>
+  {% endfor %}
+</ul>
+
+{%endblock content%}
