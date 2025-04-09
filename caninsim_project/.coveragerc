@@ -1,0 +1,22 @@
+[run]
+omit =
+    manage.py
+    */migrations/*
+    */tests/*
+    */admin.py
+    */apps.py
+    */wsgi.py
+    */asgi.py
+    */__init__.py
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def __str__
+    if self\.debug
+    raise AssertionError
+    raise NotImplementedError
+    if __name__ == .__main__.:
+
+[html]
+directory = coverage_html_report
