@@ -1,7 +1,15 @@
 {% extends "base_generic.html" %}
 
 {%block content%}
-<h1 align="center"><b>{{ dog.dog_name }}</b></h1>
+<h1 align="center">
+    <b>{{ dog.dog_name }}</b>
+    <br>
+    {% if dog.image %}
+        <img src="{{ dog.image.url }}" alt="{{ dog.dog_name }}">
+    {% else %}
+        <p>No image available.</p>
+    {% endif %}
+</h1>
 <br>
 <i><h5 align="right">Created: {{ dog.creation_date }}</h5></i>
 <strong>Owned by:</strong> <a href="{{ dog.owner.get_absolute_url }}">{{ dog.owner }}</a>
@@ -12,10 +20,12 @@
 <h6>Size: {{ dog.get_size_display }}</h6>
 <br>
 <strong>Genetics:</strong>
+<p>Base color: {{ dog.base_color }}</p>
+<p>Marking: {{ dog.marking }}</p>
+
 <h6>Nose color: {{ dog.get_nose_display }}</h6>
 <h6>Eye color: {{ dog.get_eye_display }}</h6>
 <h6>Eye color: {{ dog.get_eye_display }}</h6>
-<h6>Coat color: {{ dog.color }}</h6>
 <h6>Coat type: {{ dog.get_coat_display }}</h6>
 <br>
 <strong>Mechanics:</strong>

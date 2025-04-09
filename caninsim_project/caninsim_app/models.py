@@ -1,6 +1,10 @@
 from django.db import models
 from datetime import datetime as dtm
 from django.urls import reverse
+import os
+from io import BytesIO
+from django.core.files.base import ContentFile
+from .utils.image_generator import generate_dog_image_from_genetics
 
 
 class Dog(models.Model):
@@ -53,6 +57,16 @@ class Dog(models.Model):
         ('WC', 'wire curly'),
     )
 
+    base_color = models.CharField(max_length=50, choices=[
+        ("black", "Black"), ("gold", "Gold"), ("white", "White"),
+        ("brown", "Brown"), ("gray", "Gray"),
+    ], default="brown")
+
+    marking = models.CharField(max_length=50, choices=[
+        ("none", "None"), ("blaze", "Blaze"), ("socks", "Socks"),
+        ("patches", "Patches"), ("mask", "Mask"),
+    ], default="none")
+
     creation_date = models.DateTimeField('creation date', default=dtm.now)
     owner = models.ForeignKey('auth.User', on_delete=models.CASCADE, default=None)
     dog_name = models.CharField(max_length=30, default="Unnamed")
@@ -66,7 +80,7 @@ class Dog(models.Model):
 
     nose = models.CharField(max_length=150, choices=NOSES, default='BK')
     eye = models.CharField(max_length=150, choices=EYES, default='BR')
-    color = models.CharField(max_length=200, null=True)
+    # color = models.CharField(max_length=200, null=True)
     coat = models.CharField(max_length=150, choices=COATS, default='SM')
 
     health_points = models.IntegerField(default=100)
@@ -86,11 +100,25 @@ class Dog(models.Model):
     prey_drive = models.IntegerField(default=5)
     social_skills = models.IntegerField(default=0)
 
+    image = models.ImageField(upload_to='media/', blank=True, null=True)
+
     def __str__(self):
         return self.dog_name
 
     def get_absolute_url(self):
         return reverse("dog_detail", kwargs={"pk": self.pk})
 
-    # def was_born_recently(self):
-    #     return self.creation_date >= timezone.now() - datetime.timedelta(days=1)
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        # Generate Pillow image
+        image = generate_dog_image_from_genetics(self)
+
+        # Save to in-memory file
+        buffer = BytesIO()
+        image.save(buffer, format='PNG')
+        file_name = f"dog_{self.pk}.png"
+
+        # Save to image field
+        self.image.save(file_name, ContentFile(buffer.getvalue()), save=False)
+        super().save(update_fields=["image"])
