@@ -3,9 +3,6 @@ from .models import Dog
 from django.contrib.auth.models import User
 from django.urls import reverse
 
-class SimpleTest(TestCase):
-    def test_basic(self):
-        self.assertEqual(1, 1)
 
 class DogModelTest(TestCase):
     @classmethod
