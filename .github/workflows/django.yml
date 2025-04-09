@@ -33,7 +33,9 @@ jobs:
           cd caninsim_project
           python manage.py migrate
 
-      - name: Run tests
+      - name: Run tests with coverage
         run: |
           cd caninsim_project
-          python manage.py test
+          coverage run manage.py test
+          coverage report
+          coverage html
