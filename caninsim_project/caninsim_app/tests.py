@@ -8,14 +8,14 @@ class SimpleTest(TestCase):
         self.assertEqual(1, 1)
 
 class DogModelTest(TestCase):
-    def setUp(self):
-        self.user = User.objects.create_user(username="tester", password="pass")
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(username="tester", password="pass")
+        cls.dog = Dog.objects.create(dog_name="Willow", owner=cls.user)
 
     def test_str_returns_dog_name(self):
-        dog = Dog.objects.create(dog_name="Shadowfang", owner=self.user)
-        self.assertEqual(str(dog), "Shadowfang")
+        self.assertEqual(str(self.dog), "Willow")
 
     def test_get_absolute_url(self):
-        dog = Dog.objects.create(dog_name="Willow", owner=self.user)
-        expected_url = reverse("dog_detail", kwargs={"pk": dog.pk})
-        self.assertEqual(dog.get_absolute_url(), expected_url)
+        expected_url = reverse("dog_detail", kwargs={"pk": self.dog.pk})
+        self.assertEqual(self.dog.get_absolute_url(), expected_url)
