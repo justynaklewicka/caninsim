@@ -5,18 +5,26 @@
 <br>
 <i><h5 align="right">Registered: {{ user.date_joined }}</h5></i>
 
-<strong><em>{{ user.username }}</em> has following dogs:</strong>
-<ul class="display_user_dogs list-none p-0">
+<strong><em>{{ user.username }}</em> has the following dogs:</strong>
+<div class="flex flex-row flex-wrap gap-4 mt-4" style="list-style: none;">
   {% for dog in user.dog_set.all %}
-    <li class="mb-2 flex items-center space-x-2">
+    <div class="flex flex-col items-center w-32">
       {% if dog.image %}
-        <img src="{{ dog.image.url }}" alt="{{ dog.dog_name }}" class="w-16 h-16 object-cover rounded">
+        <a href="{{ dog.get_absolute_url }}">
+          <img src="{{ dog.image.url }}" alt="{{ dog.dog_name }}" class="w-24 h-24 object-cover rounded-md border border-gray-700">
+        </a>
       {% endif %}
-      <a href="{{ dog.get_absolute_url }}" class="text-blue-400 hover:underline">{{ dog.dog_name }}</a>
-    </li>
+      <a href="{{ dog.get_absolute_url }}" class="mt-1 text-sm text-blue-300 hover:underline">
+        {{ dog.dog_name }}
+      </a>
+    </div>
   {% empty %}
-    <li>No dogs yet.</li>
+    <p>No dogs yet.</p>
   {% endfor %}
-</ul>
+</div>
+
+
+
+
 
 {%endblock content%}
