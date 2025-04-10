@@ -3,12 +3,17 @@
 {%block content%}
 <h1 align="center"><b>{{ user.username }}</b></h1>
 <br>
-<i><h5 align="right">Registered: {{ dog.creation_date }}</h5></i>
+<i><h5 align="right">Registered: {{ user.date_joined }}</h5></i>
 
 <strong><em>{{ user.username }}</em> has following dogs:</strong>
-<ul class="ml-4 list-disc">
+<ul class="display_user_dogs list-none p-0">
   {% for dog in user.dog_set.all %}
-    <li><a href="{{ dog.get_absolute_url }}">{{ dog.dog_name }}</a></li>
+    <li class="mb-2 flex items-center space-x-2">
+      {% if dog.image %}
+        <img src="{{ dog.image.url }}" alt="{{ dog.dog_name }}" class="w-16 h-16 object-cover rounded">
+      {% endif %}
+      <a href="{{ dog.get_absolute_url }}" class="text-blue-400 hover:underline">{{ dog.dog_name }}</a>
+    </li>
   {% empty %}
     <li>No dogs yet.</li>
   {% endfor %}

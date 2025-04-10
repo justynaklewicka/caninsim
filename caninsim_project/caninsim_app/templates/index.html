@@ -5,6 +5,9 @@
   <p>
     Welcome to Caninsim, web simulation game about dog genetics and behaviour!
   </p>
+  {% if user.is_authenticated %}
+      <p></p>
+  {% endif %}
   <h2>Statistics:</h2>
   <p>The Caninsim World has the following record counts:</p>
   <ul>
